@@ -203,6 +203,31 @@ $(function () {
   // original position).
   // In case it's added to multiple elements, jQuery must clone the added element.
   // $("p:first").after($("#list"));
+  // Replace each selected item with another one.
+  // For instance, replace all <p> tags with another one.
+  // $("p:first").replaceWith("<p>I've been replaced.</p>");
+  // Again, to construct more complex elements, you may want
+  // to do that in a callback function:
+  // $("p:last").replaceWith(function () {
+  //   return "<p>Complex new paragraph...</p>";
+  // });
+  // Also, you can again replace an element with another existing
+  // element which will remove it from its original position.
+  // $(".red-box").replaceWith($(".blue-box"));
+  // You can also replace multiple items at the same time.
+  // $("li:first, li:last").replaceWith("<li>First or last list item</li>");
+  // You can remove an existing element simply with remove().
+  // For instance, the first main item:
+  // $("li:first").remove();
+  // If you want to reuse/re-display the element later, you should
+  // use detach(). This also keeps all attached event handlers alive.
+  // First, this removes the element from the DOM:
+  // var detached = $("p:first").detach();
+  // Next, this will re-attach the element to the DOM (at another position):
+  // $("#list").after(detached);
+  // To remove all elements *inside* a given elements, you can use empty().
+  // The element itself remains in the DOM, so in this case the <form>.
+  // $("form").empty();
 });
 
 // Helper function which highlights the given element with yellow background
