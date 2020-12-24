@@ -605,6 +605,48 @@ $(function () {
       $(this).css("box-shadow", "0 0 4px #181");
     }
   });
+
+  // The change event is used for input elements such as checkboxes, radio
+  // button and select tags. They fire whenever the selection changes.
+
+  // Add green indicator when checkbox is checked and red one otherwise.
+  $("#checkbox").change(function () {
+    var isChecked = $(this).is(":checked"); // or .prop("checked")
+
+    if (isChecked) {
+      // Add the checkbox' label to the selection and highlight both in green.
+      $(this).add("label[for='checkbox']").css("box-shadow", "0 0 4px #181");
+    } else {
+      $(this).add("label[for='checkbox']").css("box-shadow", "0 0 4px #811");
+    }
+  });
+
+  // Another common use case is to read the selected option from a <select>
+  // element when a new option is selected.
+  $("#selection").change(function () {
+    var chosen = $(this).find(":selected").text();
+    alert(chosen);
+  });
+
+  // You can intercept form submission via the submit event.
+  // jQuery provides the submit() for this. A common use case is to perform
+  // client-side form validation to avoid submitting a form with invalid data.
+
+  // For instance, let's check if the user wrote a message in the textarea.
+  $("#form").submit(function (event) {
+    var textarea = $("#message");
+    if (textarea.val().trim() === "") {
+      // No message, add red highlighting to indicate error
+      textarea.css("box-shadow", "0 0 4px #811");
+
+      // The default event now would be to submit the form. The browser will do
+      // this automatically when clicking a submit button. We prevent this using
+      // preventDefault(). This way, the form will not be submitted.
+      event.preventDefault();
+    } else {
+      // Nothing to do, let the form be submitted.
+    }
+  });
 });
 
 // Helper function which highlights the given element with yellow background
