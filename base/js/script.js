@@ -484,6 +484,57 @@ $(function () {
   $(".green-box").hover(function () {
     $(this).text("Hovered!");
   });
+
+  // While hover() with one callback function triggers both when entering and
+  // leaving the element with the cursor, mouseenter() and mouseleave() allow
+  // you to attach different event handlers for both.
+  $(".blue-box").mouseenter(function () {
+    $(this).stop().fadeTo(500, 0.5);
+  });
+
+  $(".blue-box").mouseleave(function () {
+    $(this).stop().fadeTo(500, 1);
+  });
+
+  // However, you can achieve the same with hover() as well. For this, you must
+  // pass in two callback functions: first the one for mouseenter, then the one
+  // for mouseleave.
+  // So the following does the same as the above, but for the red box:
+  $(".red-box").hover(
+    function () {
+      $(this).stop().fadeTo(500, 0.5);
+    },
+    function () {
+      $(this).stop().fadeTo(500, 1);
+    }
+  );
+
+  // You can attach the same handler (callback function) for multiple events
+  // using jQuery's on() function.
+  // For instance, the following logs to the console whenever you click anywhere
+  // on the page or press any key while the page/browser is focused.
+  $("html").on("click keydown", function () {
+    console.log("Mouse was clicked or key was pressed.");
+  });
+
+  // Let's use this to add a gallery that switches to the next image on click.
+  var images = [
+    "images/laptop-mobile_small.jpg",
+    "images/laptop-on-table_small.jpg",
+    "images/people-office-group-team_small.jpg",
+  ];
+
+  // The following is the same as in the image slideshow code, except we now
+  // use a click event instead of setTimeout().
+  var i = 0;
+  $(".gallery")
+    .find("img")
+    .on("click", function () {
+      i = (i + 1) % images.length;
+      $(this).fadeOut(function () {
+        $(this).attr("src", images[i]).fadeIn();
+      });
+    });
 });
 
 // Helper function which highlights the given element with yellow background
