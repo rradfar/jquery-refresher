@@ -552,8 +552,59 @@ $(function () {
   $("#content").on("click", "li li", function () {
     $(this).slideUp();
   });
-
   $("#list ul").append("<li>Dynamically added new item!</li>");
+
+  // For all the event handlers you've learned, you can pass in an additional
+  // first argument to attach extra data to the event object. This extra data
+  // is passed as a JavaScript object, which is encompassed by curly braces:
+  $("#button").click(
+    {
+      user: "John",
+      domain: "https://google.com",
+    },
+    function (event) {
+      console.log(event.data); // event.data carries the extra data: user and domain
+
+      // Here, we call our function greetUser() and pass in the event data as
+      // its argument.
+      greetUser(event.data);
+    }
+  );
+
+  // The function greetUser() accepts one parameter with user data (this will
+  // be event.data) so that we can access it inside the function.
+  function greetUser(userdata) {
+    // Uses the user from the event data, or "Anonymous" if none is defined.
+    username = userdata.user || "Anonymous";
+    domain = userdata.domain || "example.com";
+
+    alert("Welcome back " + username + " from " + domain + "!");
+  }
+
+  // Select inputs
+  var inputFields = $("input:text, input:password, textarea");
+
+  // Add grey box shadow when focusing any input using focus().
+  inputFields.focus(function () {
+    $(this).css("box-shadow", "0 0 4px #666");
+  });
+
+  // Conversely, remove box shadow from other inputs when unfocusing them
+  // using blur().
+  inputFields.blur(function () {
+    $(this).css("box-shadow", "none");
+  });
+
+  // Add green or red background to name field, depending on whether the input
+  // fulfills the validation criteria (here simply at least 3 characters)
+  $("#name").blur(function () {
+    var text = $(this).val();
+    if (text.trim().length < 3) {
+      $(this).css("box-shadow", "0 0 4px #811");
+    } else {
+      $(this).css("box-shadow", "0 0 4px #181");
+    }
+  });
 });
 
 // Helper function which highlights the given element with yellow background
